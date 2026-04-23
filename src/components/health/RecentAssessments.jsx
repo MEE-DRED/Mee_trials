@@ -1,10 +1,16 @@
 import React from 'react';
 
 const RecentAssessments = ({ assessments, loading }) => {
+  const statusClasses = {
+    green: 'bg-emerald-100 text-emerald-800',
+    yellow: 'bg-amber-100 text-amber-800',
+    red: 'bg-red-100 text-red-800'
+  };
+
   if (loading) {
     return (
-      <div className="card">
-        <div className="card-content">
+      <div className="rounded-2xl border border-primary/10 bg-white shadow-md">
+        <div className="p-6">
           <div className="animate-pulse">
             <div className="h-4 bg-dwm-green-pale rounded mb-4"></div>
             <div className="h-4 bg-dwm-green-pale rounded mb-2"></div>
@@ -17,9 +23,9 @@ const RecentAssessments = ({ assessments, loading }) => {
 
   if (!assessments || assessments.length === 0) {
     return (
-      <div className="card">
-        <div className="card-content">
-          <h3 className="text-lg font-semibold text-dwm-green-deep mb-4">
+      <div className="rounded-2xl border border-primary/10 bg-white shadow-md">
+        <div className="p-6">
+          <h3 className="text-lg font-semibold text-primary mb-4">
             Recent Assessments
           </h3>
           <div className="text-center py-8">
@@ -27,7 +33,7 @@ const RecentAssessments = ({ assessments, loading }) => {
             <p className="text-dwm-text-mid mb-4">
               No assessments completed yet
             </p>
-            <button className="btn-primary">
+            <button className="rounded-xl bg-accent px-5 py-3 text-sm font-semibold text-white transition duration-300 hover:bg-[#b58226] hover:shadow-premium-sm">
               Start Your First Assessment
             </button>
           </div>
@@ -65,9 +71,9 @@ const RecentAssessments = ({ assessments, loading }) => {
   };
 
   return (
-    <div className="card">
-      <div className="card-content">
-        <h3 className="text-lg font-semibold text-dwm-green-deep mb-4">
+    <div className="rounded-2xl border border-primary/10 bg-white shadow-md">
+      <div className="p-6">
+        <h3 className="text-lg font-semibold text-primary mb-4">
           Recent Assessments
         </h3>
         
@@ -76,12 +82,12 @@ const RecentAssessments = ({ assessments, loading }) => {
             const healthStatus = getHealthStatus(assessment);
             
             return (
-              <div key={assessment.id} className="border-l-4 border-dwm-green-deep pl-4">
+              <div key={assessment.id} className="border-l-4 border-primary pl-4">
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-1">
                       <span className="text-lg">{getAssessmentTypeIcon(assessment.assessment_type)}</span>
-                      <span className="font-medium text-dwm-green-deep">
+                      <span className="font-medium text-primary">
                         {getAssessmentTypeLabel(assessment.assessment_type)}
                       </span>
                     </div>
@@ -129,7 +135,7 @@ const RecentAssessments = ({ assessments, loading }) => {
                   </div>
                   
                   <div className="ml-4">
-                    <div className={`px-2 py-1 rounded-full text-xs font-medium bg-${healthStatus.color}-100 text-${healthStatus.color}-800`}>
+                    <div className={`px-2 py-1 rounded-full text-xs font-medium ${statusClasses[healthStatus.color] || 'bg-gray-100 text-gray-800'}`}>
                       {healthStatus.text}
                     </div>
                   </div>
@@ -139,8 +145,8 @@ const RecentAssessments = ({ assessments, loading }) => {
           })}
         </div>
 
-        <div className="mt-6 pt-4 border-t">
-          <button className="btn-secondary w-full">
+        <div className="mt-6 pt-4 border-t border-primary/10">
+          <button className="w-full rounded-xl border border-primary/20 bg-white px-4 py-3 text-sm font-semibold text-primary transition duration-300 hover:border-primary/40 hover:shadow-premium-sm">
             View All Assessments
           </button>
         </div>

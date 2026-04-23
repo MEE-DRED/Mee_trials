@@ -3,7 +3,7 @@ import React from 'react';
 const Card = ({ children, className = '', ...props }) => {
   return (
     <div 
-      className={`card ${className}`}
+      className={`rounded-2xl border border-primary/10 bg-white shadow-md ${className}`}
       {...props}
     >
       {children}
@@ -14,7 +14,7 @@ const Card = ({ children, className = '', ...props }) => {
 const CardHeader = ({ children, className = '', ...props }) => {
   return (
     <div 
-      className={`card-header ${className}`}
+      className={`p-6 pb-0 ${className}`}
       {...props}
     >
       {children}
@@ -25,7 +25,7 @@ const CardHeader = ({ children, className = '', ...props }) => {
 const CardTitle = ({ children, className = '', ...props }) => {
   return (
     <h3 
-      className={`card-title ${className}`}
+      className={`text-lg font-semibold text-primary ${className}`}
       {...props}
     >
       {children}
@@ -36,7 +36,7 @@ const CardTitle = ({ children, className = '', ...props }) => {
 const CardContent = ({ children, className = '', ...props }) => {
   return (
     <div 
-      className={`card-content ${className}`}
+      className={`p-6 ${className}`}
       {...props}
     >
       {children}

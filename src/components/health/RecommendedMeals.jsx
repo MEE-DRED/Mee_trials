@@ -1,13 +1,20 @@
 import React from 'react';
 
 const RecommendedMeals = ({ meals, loading, healthProfile }) => {
+  const badgeClasses = {
+    green: 'bg-emerald-100 text-emerald-800',
+    blue: 'bg-sky-100 text-sky-800',
+    yellow: 'bg-amber-100 text-amber-800',
+    red: 'bg-red-100 text-red-800'
+  };
+
   if (loading) {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {[1, 2, 3].map((i) => (
-          <div key={i} className="card animate-pulse">
-            <div className="h-48 bg-dwm-green-pale rounded-t-lg"></div>
-            <div className="card-content">
+          <div key={i} className="rounded-2xl border border-primary/10 bg-white shadow-md animate-pulse">
+            <div className="h-48 bg-dwm-green-pale rounded-t-2xl"></div>
+            <div className="p-6">
               <div className="h-4 bg-dwm-green-pale rounded mb-2"></div>
               <div className="h-4 bg-dwm-green-pale rounded"></div>
             </div>
@@ -24,7 +31,7 @@ const RecommendedMeals = ({ meals, loading, healthProfile }) => {
         <p className="text-dwm-text-mid mb-4">
           No recommended meals available at the moment
         </p>
-        <button className="btn-primary">
+        <button className="rounded-xl bg-accent px-5 py-3 text-sm font-semibold text-white transition duration-300 hover:bg-[#b58226] hover:shadow-premium-sm">
           Browse All Meals
         </button>
       </div>
@@ -86,9 +93,9 @@ const RecommendedMeals = ({ meals, loading, healthProfile }) => {
         const badges = getSuitabilityBadge(meal);
         
         return (
-          <div key={meal.id} className="card hover:shadow-lg transition-shadow">
+          <div key={meal.id} className="rounded-2xl border border-primary/10 bg-white shadow-md transition duration-300 hover:shadow-xl hover:-translate-y-1 overflow-hidden">
             {meal.featured_image ? (
-              <div className="h-48 overflow-hidden rounded-t-lg">
+              <div className="h-48 overflow-hidden">
                 <img 
                   src={meal.featured_image} 
                   alt={meal.name}
@@ -96,16 +103,16 @@ const RecommendedMeals = ({ meals, loading, healthProfile }) => {
                 />
               </div>
             ) : (
-              <div className="h-48 bg-dwm-green-pale rounded-t-lg flex items-center justify-center">
+              <div className="h-48 bg-dwm-green-pale flex items-center justify-center">
                 <div className="text-4xl"></div>
               </div>
             )}
             
-            <div className="card-content">
+            <div className="p-6">
               <div className="mb-2">
-                <h4 className="font-semibold text-dwm-green-deep">{meal.name}</h4>
+                <h4 className="font-semibold text-primary">{meal.name}</h4>
                 {meal.description && (
-                  <p className="text-sm text-dwm-text-mid line-clamp-2">
+                  <p className="text-sm text-dwm-text-mid line-clamp-2 leading-relaxed">
                     {meal.description}
                   </p>
                 )}
@@ -117,7 +124,7 @@ const RecommendedMeals = ({ meals, loading, healthProfile }) => {
                   {badges.map((badge, index) => (
                     <span 
                       key={index}
-                      className={`px-2 py-1 rounded-full text-xs font-medium bg-${badge.color}-100 text-${badge.color}-800`}
+                      className={`px-2 py-1 rounded-full text-xs font-medium ${badgeClasses[badge.color] || 'bg-gray-100 text-gray-800'}`}
                     >
                       {badge.text}
                     </span>
@@ -129,7 +136,7 @@ const RecommendedMeals = ({ meals, loading, healthProfile }) => {
               <div className="grid grid-cols-2 gap-2 text-sm text-dwm-text-mid mb-3">
                 {meal.calories_per_serving && (
                   <div>
-                    <span className="font-medium text-dwm-green-deep">
+                    <span className="font-medium text-primary">
                       {meal.calories_per_serving}
                     </span>
                     <span className="ml-1">cal</span>
@@ -137,7 +144,7 @@ const RecommendedMeals = ({ meals, loading, healthProfile }) => {
                 )}
                 {meal.sodium_per_serving && (
                   <div>
-                    <span className="font-medium text-dwm-green-deep">
+                    <span className="font-medium text-primary">
                       {meal.sodium_per_serving}
                     </span>
                     <span className="ml-1">mg Na</span>
@@ -145,7 +152,7 @@ const RecommendedMeals = ({ meals, loading, healthProfile }) => {
                 )}
                 {meal.protein_per_serving && (
                   <div>
-                    <span className="font-medium text-dwm-green-deep">
+                    <span className="font-medium text-primary">
                       {meal.protein_per_serving}
                     </span>
                     <span className="ml-1">g protein</span>
@@ -153,7 +160,7 @@ const RecommendedMeals = ({ meals, loading, healthProfile }) => {
                 )}
                 {meal.preparation_time_min && (
                   <div>
-                    <span className="font-medium text-dwm-green-deep">
+                    <span className="font-medium text-primary">
                       {meal.preparation_time_min}
                     </span>
                     <span className="ml-1">min</span>
@@ -162,10 +169,10 @@ const RecommendedMeals = ({ meals, loading, healthProfile }) => {
               </div>
               
               <div className="flex gap-2">
-                <button className="btn-primary flex-1 text-sm">
+                <button className="flex-1 rounded-xl bg-accent px-4 py-2.5 text-sm font-semibold text-white transition duration-300 hover:bg-[#b58226] hover:shadow-premium-sm">
                   View Details
                 </button>
-                <button className="btn-secondary flex-1 text-sm">
+                <button className="flex-1 rounded-xl border border-primary/20 bg-white px-4 py-2.5 text-sm font-semibold text-primary transition duration-300 hover:border-primary/40 hover:shadow-premium-sm">
                   Add to Cart
                 </button>
               </div>

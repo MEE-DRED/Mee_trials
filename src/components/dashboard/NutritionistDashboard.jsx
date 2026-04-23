@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 import { useNutritionist } from '../../context/NutritionistContext';
 import { useAuth } from '../../context/AuthContext';
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
-import { Button } from '../ui/button';
-import { Badge } from '../ui/badge';
-import { Progress } from '../ui/progress';
+import { Card, CardContent, CardHeader, CardTitle, Button, Badge, Progress } from '../ui';
 import { 
   Users, 
   Calendar, 
@@ -34,7 +31,7 @@ const NutritionistDashboard = () => {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
+        <div className="h-20 w-20 animate-spin rounded-full border-b-2 border-accent"></div>
       </div>
     );
   }
@@ -51,28 +48,28 @@ const NutritionistDashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen bg-gradient-to-b from-dwm-off-white via-white to-dwm-green-pale/30 p-6 text-dwm-text-dark">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+        <div className="mb-8 rounded-3xl border border-primary/10 bg-white p-6 shadow-premium-sm">
+          <h1 className="mb-2 text-3xl font-semibold text-primary">
             Welcome back, {profile?.name || user?.name}!
           </h1>
-          <p className="text-gray-600">
+          <p className="text-dwm-text-mid">
             Manage your clients, consultations, and meal plans
           </p>
         </div>
 
         {/* Navigation Tabs */}
-        <div className="flex space-x-4 mb-6 border-b">
+        <div className="mb-6 flex flex-wrap gap-2 rounded-2xl border border-primary/10 bg-white p-2 shadow-premium-sm">
           {['overview', 'clients', 'schedule', 'meal-plans'].map((view) => (
             <button
               key={view}
               onClick={() => setSelectedView(view)}
-              className={`pb-2 px-4 font-medium transition-colors ${
+              className={`rounded-xl px-4 py-2 text-sm font-semibold transition duration-300 ${
                 selectedView === view
-                  ? 'text-blue-600 border-b-2 border-blue-600'
-                  : 'text-gray-600 hover:text-gray-900'
+                  ? 'bg-primary text-white shadow-premium-sm'
+                  : 'text-dwm-text-mid hover:bg-primary/5 hover:text-primary'
               }`}
             >
               {view.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
@@ -143,16 +140,16 @@ const NutritionistDashboard = () => {
                 <CardContent>
                   <div className="space-y-3">
                     {consultations.slice(0, 3).map((consultation) => (
-                      <div key={consultation.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                      <div key={consultation.id} className="flex items-center justify-between rounded-2xl border border-primary/10 bg-dwm-off-white p-3">
                         <div>
                           <p className="font-medium">{consultation.clientName}</p>
-                          <p className="text-sm text-gray-600">{consultation.type}</p>
+                          <p className="text-sm text-dwm-text-mid">{consultation.type}</p>
                         </div>
                         <div className="text-right">
-                          <Badge variant={consultation.status === 'completed' ? 'default' : 'secondary'}>
+                          <Badge variant={consultation.status === 'completed' ? 'success' : 'warning'}>
                             {consultation.status}
                           </Badge>
-                          <p className="text-xs text-gray-500 mt-1">
+                          <p className="mt-1 text-xs text-dwm-text-mid">
                             {new Date(consultation.date).toLocaleDateString()}
                           </p>
                         </div>
@@ -169,16 +166,16 @@ const NutritionistDashboard = () => {
                 <CardContent>
                   <div className="space-y-3">
                     {schedule.slice(0, 3).map((appointment) => (
-                      <div key={appointment.id} className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
+                      <div key={appointment.id} className="flex items-center justify-between rounded-2xl border border-primary/10 bg-sky-50 p-3">
                         <div>
                           <p className="font-medium">{appointment.clientName}</p>
-                          <p className="text-sm text-gray-600">{appointment.type}</p>
+                          <p className="text-sm text-dwm-text-mid">{appointment.type}</p>
                         </div>
                         <div className="text-right">
                           <p className="text-sm font-medium">
                             {new Date(appointment.date).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
                           </p>
-                          <p className="text-xs text-gray-500">{appointment.duration} min</p>
+                          <p className="text-xs text-dwm-text-mid">{appointment.duration} min</p>
                         </div>
                       </div>
                     ))}
@@ -214,29 +211,29 @@ const NutritionistDashboard = () => {
             <CardContent>
               <div className="space-y-4">
                 {clients.map((client) => (
-                  <div key={client.id} className="border rounded-lg p-4 hover:shadow-md transition-shadow">
+                  <div key={client.id} className="rounded-2xl border border-primary/10 bg-white p-4 transition duration-300 hover:-translate-y-0.5 hover:shadow-premium-sm">
                     <div className="flex items-center justify-between mb-3">
                       <div>
                         <h3 className="font-medium text-lg">{client.name}</h3>
-                        <p className="text-gray-600">{client.email}</p>
+                        <p className="text-dwm-text-mid">{client.email}</p>
                       </div>
-                      <Badge variant={client.status === 'active' ? 'default' : 'secondary'}>
+                      <Badge variant={client.status === 'active' ? 'success' : 'warning'}>
                         {client.status}
                       </Badge>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
                       <div>
                         <p className="font-medium">Health Profile</p>
-                        <p className="text-gray-600">BMI: {client.healthProfile.bmi}</p>
-                        <p className="text-gray-600">Conditions: {client.healthProfile.conditions.join(', ')}</p>
+                        <p className="text-dwm-text-mid">BMI: {client.healthProfile.bmi}</p>
+                        <p className="text-dwm-text-mid">Conditions: {client.healthProfile.conditions.join(', ')}</p>
                       </div>
                       <div>
                         <p className="font-medium">Last Assessment</p>
-                        <p className="text-gray-600">{new Date(client.healthProfile.lastAssessment).toLocaleDateString()}</p>
+                        <p className="text-dwm-text-mid">{new Date(client.healthProfile.lastAssessment).toLocaleDateString()}</p>
                       </div>
                       <div>
                         <p className="font-medium">Member Since</p>
-                        <p className="text-gray-600">{new Date(client.joinDate).toLocaleDateString()}</p>
+                        <p className="text-dwm-text-mid">{new Date(client.joinDate).toLocaleDateString()}</p>
                       </div>
                     </div>
                     <div className="flex space-x-2 mt-4">
@@ -272,26 +269,26 @@ const NutritionistDashboard = () => {
             <CardContent>
               <div className="space-y-4">
                 {schedule.map((appointment) => (
-                  <div key={appointment.id} className="border rounded-lg p-4 hover:shadow-md transition-shadow">
+                  <div key={appointment.id} className="rounded-2xl border border-primary/10 bg-white p-4 transition duration-300 hover:-translate-y-0.5 hover:shadow-premium-sm">
                     <div className="flex items-center justify-between mb-3">
                       <div>
                         <h3 className="font-medium text-lg">{appointment.clientName}</h3>
-                        <p className="text-gray-600">{appointment.type}</p>
+                        <p className="text-dwm-text-mid">{appointment.type}</p>
                       </div>
-                      <Badge variant={appointment.status === 'scheduled' ? 'default' : 'secondary'}>
+                      <Badge variant={appointment.status === 'scheduled' ? 'info' : 'warning'}>
                         {appointment.status}
                       </Badge>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                       <div>
                         <p className="font-medium">Date & Time</p>
-                        <p className="text-gray-600">
+                        <p className="text-dwm-text-mid">
                           {new Date(appointment.date).toLocaleString()}
                         </p>
                       </div>
                       <div>
                         <p className="font-medium">Duration</p>
-                        <p className="text-gray-600">{appointment.duration} minutes</p>
+                        <p className="text-dwm-text-mid">{appointment.duration} minutes</p>
                       </div>
                     </div>
                     <div className="flex space-x-2 mt-4">
@@ -328,28 +325,28 @@ const NutritionistDashboard = () => {
             <CardContent>
               <div className="space-y-4">
                 {mealPlans.map((plan) => (
-                  <div key={plan.id} className="border rounded-lg p-4 hover:shadow-md transition-shadow">
+                  <div key={plan.id} className="rounded-2xl border border-primary/10 bg-white p-4 transition duration-300 hover:-translate-y-0.5 hover:shadow-premium-sm">
                     <div className="flex items-center justify-between mb-3">
                       <div>
                         <h3 className="font-medium text-lg">{plan.name}</h3>
-                        <p className="text-gray-600">For: {plan.clientName}</p>
+                        <p className="text-dwm-text-mid">For: {plan.clientName}</p>
                       </div>
-                      <Badge variant={plan.status === 'active' ? 'default' : 'secondary'}>
+                      <Badge variant={plan.status === 'active' ? 'success' : 'warning'}>
                         {plan.status}
                       </Badge>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
                       <div>
                         <p className="font-medium">Duration</p>
-                        <p className="text-gray-600">{plan.duration}</p>
+                        <p className="text-dwm-text-mid">{plan.duration}</p>
                       </div>
                       <div>
                         <p className="font-medium">Total Meals</p>
-                        <p className="text-gray-600">{plan.meals} meals</p>
+                        <p className="text-dwm-text-mid">{plan.meals} meals</p>
                       </div>
                       <div>
                         <p className="font-medium">Created</p>
-                        <p className="text-gray-600">{new Date(plan.createdDate).toLocaleDateString()}</p>
+                        <p className="text-dwm-text-mid">{new Date(plan.createdDate).toLocaleDateString()}</p>
                       </div>
                     </div>
                     <div className="flex space-x-2 mt-4">

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './redux';
-import { checkAuthState, loadCartFromStorage } from './redux';
+import { checkAuthState, getCurrentUser, loadCartFromStorage } from './redux';
 import { AuthProvider } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
 import Navbar from './components/Navbar';
@@ -25,6 +25,9 @@ import ProgramDetail from './pages/ProgramDetail';
 import Maternal from './pages/Maternal';
 import Research from './pages/Research';
 import ChefPartner from './pages/ChefPartner';
+import Terms from './pages/Terms';
+import Privacy from './pages/Privacy';
+import Settings from './pages/Settings';
 
 // Role-based dashboards with lazy loading
 import { lazy, Suspense } from 'react';
@@ -71,6 +74,9 @@ function App() {
                   <Route path="/maternal" element={<Maternal />} />
                   <Route path="/research" element={<Research />} />
                   <Route path="/chef-partner" element={<ChefPartner />} />
+                  <Route path="/terms" element={<Terms />} />
+                  <Route path="/privacy" element={<Privacy />} />
+                  <Route path="/settings" element={<Settings />} />
                   
                   {/* Role-based dashboards with lazy loading */}
                   <Route path="/customer/dashboard" element={

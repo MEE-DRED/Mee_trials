@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 import { usePharmacy } from '../../context/PharmacyContext';
 import { useAuth } from '../../context/AuthContext';
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
-import { Button } from '../ui/button';
-import { Badge } from '../ui/badge';
-import { Progress } from '../ui/progress';
+import { Card, CardContent, CardHeader, CardTitle, Button, Badge, Progress } from '../ui';
 import { 
   Users, 
   Package, 
@@ -39,7 +36,7 @@ const PharmacyDashboard = () => {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
+        <div className="h-20 w-20 animate-spin rounded-full border-b-2 border-accent"></div>
       </div>
     );
   }
@@ -56,28 +53,28 @@ const PharmacyDashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen bg-gradient-to-b from-dwm-off-white via-white to-dwm-green-pale/30 p-6 text-dwm-text-dark">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+        <div className="mb-8 rounded-3xl border border-primary/10 bg-white p-6 shadow-premium-sm">
+          <h1 className="mb-2 text-3xl font-semibold text-primary">
             Welcome back, {profile?.name || user?.name}!
           </h1>
-          <p className="text-gray-600">
+          <p className="text-dwm-text-mid">
             Manage patients, medications, and health data integration
           </p>
         </div>
 
         {/* Navigation Tabs */}
-        <div className="flex space-x-4 mb-6 border-b">
+        <div className="mb-6 flex flex-wrap gap-2 rounded-2xl border border-primary/10 bg-white p-2 shadow-premium-sm">
           {['overview', 'patients', 'medications', 'prescriptions', 'inventory', 'compliance'].map((view) => (
             <button
               key={view}
               onClick={() => setSelectedView(view)}
-              className={`pb-2 px-4 font-medium transition-colors ${
+              className={`rounded-xl px-4 py-2 text-sm font-semibold transition duration-300 ${
                 selectedView === view
-                  ? 'text-blue-600 border-b-2 border-blue-600'
-                  : 'text-gray-600 hover:text-gray-900'
+                  ? 'bg-primary text-white shadow-premium-sm'
+                  : 'text-dwm-text-mid hover:bg-primary/5 hover:text-primary'
               }`}
             >
               {view.charAt(0).toUpperCase() + view.slice(1)}
@@ -161,16 +158,16 @@ const PharmacyDashboard = () => {
                 <CardContent>
                   <div className="space-y-3">
                     {prescriptions.slice(0, 3).map((prescription) => (
-                      <div key={prescription.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                      <div key={prescription.id} className="flex items-center justify-between rounded-2xl border border-primary/10 bg-dwm-off-white p-3">
                         <div>
                           <p className="font-medium">{prescription.patientName}</p>
-                          <p className="text-sm text-gray-600">{prescription.medicationName} - {prescription.dosage}</p>
+                          <p className="text-sm text-dwm-text-mid">{prescription.medicationName} - {prescription.dosage}</p>
                         </div>
                         <div className="text-right">
-                          <Badge variant={prescription.status === 'active' ? 'default' : 'secondary'}>
+                          <Badge variant={prescription.status === 'active' ? 'success' : 'warning'}>
                             {prescription.status}
                           </Badge>
-                          <p className="text-xs text-gray-500 mt-1">
+                          <p className="mt-1 text-xs text-dwm-text-mid">
                             Refills: {prescription.refillsRemaining}
                           </p>
                         </div>
@@ -187,12 +184,12 @@ const PharmacyDashboard = () => {
                 <CardContent>
                   <div className="space-y-3">
                     {inventory.filter(item => item.currentStock <= item.reorderLevel).map((item) => (
-                      <div key={item.id} className="flex items-center justify-between p-3 bg-red-50 rounded-lg">
+                      <div key={item.id} className="flex items-center justify-between rounded-2xl border border-red-200 bg-red-50 p-3">
                         <div className="flex items-center">
                           <AlertTriangle className="h-4 w-4 text-red-500 mr-2" />
                           <div>
                             <p className="font-medium">{item.medicationName}</p>
-                            <p className="text-sm text-gray-600">Stock: {item.currentStock} (Reorder at {item.reorderLevel})</p>
+                            <p className="text-sm text-dwm-text-mid">Stock: {item.currentStock} (Reorder at {item.reorderLevel})</p>
                           </div>
                         </div>
                         <Button variant="outline" size="sm">
@@ -201,7 +198,7 @@ const PharmacyDashboard = () => {
                       </div>
                     ))}
                     {inventory.filter(item => item.currentStock <= item.reorderLevel).length === 0 && (
-                      <p className="text-gray-500 text-center py-4">All inventory levels are healthy</p>
+                      <p className="py-4 text-center text-dwm-text-mid">All inventory levels are healthy</p>
                     )}
                   </div>
                 </CardContent>
@@ -235,30 +232,30 @@ const PharmacyDashboard = () => {
             <CardContent>
               <div className="space-y-4">
                 {patients.map((patient) => (
-                  <div key={patient.id} className="border rounded-lg p-4 hover:shadow-md transition-shadow">
+                  <div key={patient.id} className="rounded-2xl border border-primary/10 bg-white p-4 transition duration-300 hover:-translate-y-0.5 hover:shadow-premium-sm">
                     <div className="flex items-center justify-between mb-3">
                       <div>
                         <h3 className="font-medium text-lg">{patient.name}</h3>
-                        <p className="text-gray-600">{patient.email}</p>
+                        <p className="text-dwm-text-mid">{patient.email}</p>
                       </div>
                       <div className="text-right">
-                        <p className="text-sm text-gray-500">Last Visit</p>
+                        <p className="text-sm text-dwm-text-mid">Last Visit</p>
                         <p className="text-sm">{new Date(patient.lastVisit).toLocaleDateString()}</p>
                       </div>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
                       <div>
                         <p className="font-medium">Conditions</p>
-                        <p className="text-gray-600">{patient.conditions.join(', ')}</p>
+                        <p className="text-dwm-text-mid">{patient.conditions.join(', ')}</p>
                       </div>
                       <div>
                         <p className="font-medium">Medications</p>
-                        <p className="text-gray-600">{patient.medications.join(', ')}</p>
+                        <p className="text-dwm-text-mid">{patient.medications.join(', ')}</p>
                       </div>
                       <div>
                         <p className="font-medium">Healthcare Team</p>
-                        <p className="text-gray-600">Dr: {patient.prescribingDoctor}</p>
-                        <p className="text-gray-600">Nutritionist: {patient.nutritionist}</p>
+                        <p className="text-dwm-text-mid">Dr: {patient.prescribingDoctor}</p>
+                        <p className="text-dwm-text-mid">Nutritionist: {patient.nutritionist}</p>
                       </div>
                     </div>
                     <div className="flex space-x-2 mt-4">
@@ -294,24 +291,24 @@ const PharmacyDashboard = () => {
             <CardContent>
               <div className="space-y-4">
                 {medications.map((medication) => (
-                  <div key={medication.id} className="border rounded-lg p-4 hover:shadow-md transition-shadow">
+                  <div key={medication.id} className="rounded-2xl border border-primary/10 bg-white p-4 transition duration-300 hover:-translate-y-0.5 hover:shadow-premium-sm">
                     <div className="flex items-center justify-between mb-3">
                       <div>
                         <h3 className="font-medium text-lg">{medication.name}</h3>
-                        <p className="text-gray-600">{medication.category}</p>
+                        <p className="text-dwm-text-mid">{medication.category}</p>
                       </div>
-                      <Badge variant={medication.stockLevel > medication.reorderLevel ? 'default' : 'destructive'}>
+                      <Badge variant={medication.stockLevel > medication.reorderLevel ? 'success' : 'danger'}>
                         {medication.stockLevel > medication.reorderLevel ? 'In Stock' : 'Low Stock'}
                       </Badge>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                       <div>
                         <p className="font-medium">Description</p>
-                        <p className="text-gray-600">{medication.description}</p>
+                        <p className="text-dwm-text-mid">{medication.description}</p>
                       </div>
                       <div>
                         <p className="font-medium">Stock Level</p>
-                        <p className="text-gray-600">{medication.stockLevel} units (Reorder at {medication.reorderLevel})</p>
+                        <p className="text-dwm-text-mid">{medication.stockLevel} units (Reorder at {medication.reorderLevel})</p>
                       </div>
                     </div>
                     <div className="mt-4">
@@ -357,17 +354,17 @@ const PharmacyDashboard = () => {
             <CardContent>
               <div className="space-y-4">
                 {prescriptions.map((prescription) => (
-                  <div key={prescription.id} className="border rounded-lg p-4 hover:shadow-md transition-shadow">
+                  <div key={prescription.id} className="rounded-2xl border border-primary/10 bg-white p-4 transition duration-300 hover:-translate-y-0.5 hover:shadow-premium-sm">
                     <div className="flex items-center justify-between mb-3">
                       <div>
                         <h3 className="font-medium text-lg">{prescription.patientName}</h3>
-                        <p className="text-gray-600">{prescription.medicationName} - {prescription.dosage}</p>
+                        <p className="text-dwm-text-mid">{prescription.medicationName} - {prescription.dosage}</p>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <Badge variant={prescription.status === 'active' ? 'default' : 'secondary'}>
+                        <Badge variant={prescription.status === 'active' ? 'success' : 'warning'}>
                           {prescription.status}
                         </Badge>
-                        <Badge variant="outline">
+                        <Badge variant="secondary">
                           {prescription.refillsRemaining} refills left
                         </Badge>
                       </div>
@@ -375,15 +372,15 @@ const PharmacyDashboard = () => {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
                       <div>
                         <p className="font-medium">Prescribed By</p>
-                        <p className="text-gray-600">{prescription.prescribedBy}</p>
+                        <p className="text-dwm-text-mid">{prescription.prescribedBy}</p>
                       </div>
                       <div>
                         <p className="font-medium">Frequency</p>
-                        <p className="text-gray-600">{prescription.frequency}</p>
+                        <p className="text-dwm-text-mid">{prescription.frequency}</p>
                       </div>
                       <div>
                         <p className="font-medium">Dates</p>
-                        <p className="text-gray-600">
+                        <p className="text-dwm-text-mid">
                           {new Date(prescription.prescribedDate).toLocaleDateString()} - 
                           {new Date(prescription.expiryDate).toLocaleDateString()}
                         </p>
@@ -422,14 +419,14 @@ const PharmacyDashboard = () => {
             <CardContent>
               <div className="space-y-4">
                 {inventory.map((item) => (
-                  <div key={item.id} className="border rounded-lg p-4 hover:shadow-md transition-shadow">
+                  <div key={item.id} className="rounded-2xl border border-primary/10 bg-white p-4 transition duration-300 hover:-translate-y-0.5 hover:shadow-premium-sm">
                     <div className="flex items-center justify-between mb-3">
                       <div>
                         <h3 className="font-medium text-lg">{item.medicationName}</h3>
-                        <p className="text-gray-600">Supplier: {item.supplier}</p>
+                        <p className="text-dwm-text-mid">Supplier: {item.supplier}</p>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <Badge variant={item.currentStock > item.reorderLevel ? 'default' : 'destructive'}>
+                        <Badge variant={item.currentStock > item.reorderLevel ? 'success' : 'danger'}>
                           {item.currentStock > item.reorderLevel ? 'Adequate' : 'Low Stock'}
                         </Badge>
                         <span className="text-sm font-medium">${item.unitPrice}/unit</span>
@@ -438,19 +435,19 @@ const PharmacyDashboard = () => {
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-sm">
                       <div>
                         <p className="font-medium">Current Stock</p>
-                        <p className="text-gray-600">{item.currentStock} units</p>
+                        <p className="text-dwm-text-mid">{item.currentStock} units</p>
                       </div>
                       <div>
                         <p className="font-medium">Reorder Level</p>
-                        <p className="text-gray-600">{item.reorderLevel} units</p>
+                        <p className="text-dwm-text-mid">{item.reorderLevel} units</p>
                       </div>
                       <div>
                         <p className="font-medium">Last Restocked</p>
-                        <p className="text-gray-600">{new Date(item.lastRestocked).toLocaleDateString()}</p>
+                        <p className="text-dwm-text-mid">{new Date(item.lastRestocked).toLocaleDateString()}</p>
                       </div>
                       <div>
                         <p className="font-medium">Next Restock</p>
-                        <p className="text-gray-600">{new Date(item.nextRestockDate).toLocaleDateString()}</p>
+                        <p className="text-dwm-text-mid">{new Date(item.nextRestockDate).toLocaleDateString()}</p>
                       </div>
                     </div>
                     <div className="flex space-x-2 mt-4">
@@ -486,20 +483,20 @@ const PharmacyDashboard = () => {
             <CardContent>
               <div className="space-y-4">
                 {complianceData.map((data) => (
-                  <div key={data.id} className="border rounded-lg p-4 hover:shadow-md transition-shadow">
+                  <div key={data.id} className="rounded-2xl border border-primary/10 bg-white p-4 transition duration-300 hover:-translate-y-0.5 hover:shadow-premium-sm">
                     <div className="flex items-center justify-between mb-3">
                       <div>
                         <h3 className="font-medium text-lg">{data.patientName}</h3>
-                        <p className="text-gray-600">{data.medicationName}</p>
+                        <p className="text-dwm-text-mid">{data.medicationName}</p>
                       </div>
                       <div className="flex items-center space-x-2">
                         <Badge variant={
-                          data.adherenceRate >= 90 ? 'default' : 
-                          data.adherenceRate >= 70 ? 'secondary' : 'destructive'
+                          data.adherenceRate >= 90 ? 'success' : 
+                          data.adherenceRate >= 70 ? 'warning' : 'danger'
                         }>
                           {data.adherenceRate}% adherence
                         </Badge>
-                        <Badge variant="outline">
+                        <Badge variant="secondary">
                           {data.riskLevel} risk
                         </Badge>
                       </div>
@@ -507,15 +504,15 @@ const PharmacyDashboard = () => {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
                       <div>
                         <p className="font-medium">30-Day Performance</p>
-                        <p className="text-gray-600">{data.last30Days} doses taken</p>
+                        <p className="text-dwm-text-mid">{data.last30Days} doses taken</p>
                       </div>
                       <div>
                         <p className="font-medium">Missed Doses</p>
-                        <p className="text-gray-600">{data.missedDoses} doses missed</p>
+                        <p className="text-dwm-text-mid">{data.missedDoses} doses missed</p>
                       </div>
                       <div>
                         <p className="font-medium">Last Updated</p>
-                        <p className="text-gray-600">{new Date(data.lastUpdated).toLocaleDateString()}</p>
+                        <p className="text-dwm-text-mid">{new Date(data.lastUpdated).toLocaleDateString()}</p>
                       </div>
                     </div>
                     <div className="mt-4">

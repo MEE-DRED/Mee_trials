@@ -1,10 +1,18 @@
 import React from 'react';
 
 const HealthProfileWidget = ({ profile, loading }) => {
+  const statusClasses = {
+    green: 'bg-emerald-100 text-emerald-800',
+    yellow: 'bg-amber-100 text-amber-800',
+    orange: 'bg-orange-100 text-orange-800',
+    red: 'bg-red-100 text-red-800',
+    gray: 'bg-gray-100 text-gray-800'
+  };
+
   if (loading) {
     return (
-      <div className="card">
-        <div className="card-content">
+      <div className="rounded-2xl border border-primary/10 bg-white shadow-md">
+        <div className="p-6">
           <div className="animate-pulse">
             <div className="h-4 bg-dwm-green-pale rounded mb-4"></div>
             <div className="h-4 bg-dwm-green-pale rounded mb-2"></div>
@@ -17,15 +25,15 @@ const HealthProfileWidget = ({ profile, loading }) => {
 
   if (!profile) {
     return (
-      <div className="card">
-        <div className="card-content">
-          <h3 className="text-lg font-semibold text-dwm-green-deep mb-4">
+      <div className="rounded-2xl border border-primary/10 bg-white shadow-md">
+        <div className="p-6">
+          <h3 className="text-lg font-semibold text-primary mb-4">
             📋 Health Profile
           </h3>
           <p className="text-dwm-text-mid text-center py-8">
             No health profile data available
           </p>
-          <button className="btn-primary w-full">
+          <button className="w-full rounded-xl bg-accent px-4 py-3 text-sm font-semibold text-white transition duration-300 hover:bg-[#b58226] hover:shadow-premium-sm">
             Complete Health Assessment
           </button>
         </div>
@@ -68,24 +76,24 @@ const HealthProfileWidget = ({ profile, loading }) => {
   const diabetesCategory = getDiabetesCategory(profile.diabetes_category);
 
   return (
-    <div className="card">
-      <div className="card-content">
-        <h3 className="text-lg font-semibold text-dwm-green-deep mb-4">
+    <div className="rounded-2xl border border-primary/10 bg-white shadow-md">
+      <div className="p-6">
+        <h3 className="text-lg font-semibold text-primary mb-4">
           📋 Your Health Profile
         </h3>
         
         <div className="space-y-4">
           {/* Basic Metrics */}
           <div className="grid grid-cols-2 gap-4">
-            <div className="text-center p-3 bg-dwm-green-pale rounded-lg">
+            <div className="text-center p-3 bg-dwm-green-pale rounded-xl">
               <div className="text-sm text-dwm-text-mid">Weight</div>
-              <div className="text-xl font-bold text-dwm-green-deep">
+              <div className="text-xl font-bold text-primary">
                 {profile.weight_kg ? `${profile.weight_kg} kg` : '--'}
               </div>
             </div>
-            <div className="text-center p-3 bg-dwm-green-pale rounded-lg">
+            <div className="text-center p-3 bg-dwm-green-pale rounded-xl">
               <div className="text-sm text-dwm-text-mid">BMI</div>
-              <div className="text-xl font-bold text-dwm-green-deep">
+              <div className="text-xl font-bold text-primary">
                 {profile.bmi ? profile.bmi.toFixed(1) : '--'}
               </div>
               <div className="text-xs text-dwm-text-mid">
@@ -99,12 +107,12 @@ const HealthProfileWidget = ({ profile, loading }) => {
             <h4 className="text-sm font-medium text-dwm-text-mid mb-2">Blood Pressure</h4>
             <div className="flex items-center justify-between">
               <div>
-                <span className="text-2xl font-bold text-dwm-green-deep">
+                <span className="text-2xl font-bold text-primary">
                   {profile.systolic_bp || '--'}/{profile.diastolic_bp || '--'}
                 </span>
                 <span className="text-sm text-dwm-text-mid ml-2">mmHg</span>
               </div>
-              <div className={`px-3 py-1 rounded-full text-xs font-medium bg-${bpCategory.color}-100 text-${bpCategory.color}-800`}>
+              <div className={`px-3 py-1 rounded-full text-xs font-medium ${statusClasses[bpCategory.color] || statusClasses.gray}`}>
                 {bpCategory.text}
               </div>
             </div>
@@ -116,18 +124,18 @@ const HealthProfileWidget = ({ profile, loading }) => {
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <div className="text-sm text-dwm-text-mid">Fasting Glucose</div>
-                <div className="text-lg font-bold text-dwm-green-deep">
+                <div className="text-lg font-bold text-primary">
                   {profile.fasting_blood_glucose ? `${profile.fasting_blood_glucose} mg/dL` : '--'}
                 </div>
               </div>
               <div>
                 <div className="text-sm text-dwm-text-mid">HbA1c</div>
-                <div className="text-lg font-bold text-dwm-green-deep">
+                <div className="text-lg font-bold text-primary">
                   {profile.hba1c ? `${profile.hba1c}%` : '--'}
                 </div>
               </div>
             </div>
-            <div className={`mt-2 px-3 py-1 rounded-full text-xs font-medium bg-${diabetesCategory.color}-100 text-${diabetesCategory.color}-800`}>
+            <div className={`mt-2 px-3 py-1 rounded-full text-xs font-medium ${statusClasses[diabetesCategory.color] || statusClasses.gray}`}>
               {diabetesCategory.text}
             </div>
           </div>
@@ -137,12 +145,12 @@ const HealthProfileWidget = ({ profile, loading }) => {
             <div className="border-t pt-4">
               <h4 className="text-sm font-medium text-dwm-text-mid mb-2">Overall Health Score</h4>
               <div className="text-center">
-                <div className="text-3xl font-bold text-dwm-green-deep">
+                <div className="text-3xl font-bold text-primary">
                   {profile.overall_health_score}/100
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
                   <div 
-                    className="bg-dwm-green-deep h-2 rounded-full" 
+                    className="bg-primary h-2 rounded-full" 
                     style={{ width: `${profile.overall_health_score}%` }}
                   ></div>
                 </div>
@@ -160,8 +168,8 @@ const HealthProfileWidget = ({ profile, loading }) => {
           )}
         </div>
 
-        <div className="mt-6 pt-4 border-t">
-          <button className="btn-secondary w-full">
+        <div className="mt-6 pt-4 border-t border-primary/10">
+          <button className="w-full rounded-xl border border-primary/20 bg-white px-4 py-3 text-sm font-semibold text-primary transition duration-300 hover:border-primary/40 hover:shadow-premium-sm">
             Update Health Profile
           </button>
         </div>

@@ -25,16 +25,16 @@ const PatientList = ({ patients, loading }) => {
   return (
     <div className="space-y-4">
       {patients.slice(0, 5).map((patient) => (
-        <div key={patient.id} className="flex items-center justify-between p-4 bg-dwm-green-pale rounded-lg hover:bg-dwm-green-light transition-colors">
+        <div key={patient.id} className="flex items-center justify-between p-4 bg-dwm-green-pale rounded-2xl border border-primary/10 hover:shadow-sm transition duration-300">
           <div className="flex items-center space-x-4">
             {/* Avatar */}
-            <div className="w-12 h-12 bg-dwm-green-deep rounded-full flex items-center justify-center text-white font-semibold">
+            <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white font-semibold">
               {patient.first_name?.[0] || 'U'}
             </div>
             
             {/* Patient Info */}
             <div>
-              <div className="font-semibold text-dwm-green-deep">
+              <div className="font-semibold text-primary">
                 {patient.first_name} {patient.last_name}
               </div>
               <div className="text-sm text-dwm-text-mid">
@@ -47,7 +47,7 @@ const PatientList = ({ patients, loading }) => {
           </div>
           
           <div className="text-right">
-            <div className="px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 mb-2">
+            <div className="px-3 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800 mb-2">
               Stable
             </div>
             <div className="text-sm text-dwm-text-mid">
@@ -62,7 +62,7 @@ const PatientList = ({ patients, loading }) => {
       
       {patients.length > 5 && (
         <div className="text-center pt-4">
-          <button className="btn-secondary">
+          <button className="rounded-xl border border-primary/20 px-4 py-2 text-sm font-semibold text-primary transition duration-300 hover:border-primary/40 hover:shadow-premium-sm">
             View All Patients ({patients.length})
           </button>
         </div>

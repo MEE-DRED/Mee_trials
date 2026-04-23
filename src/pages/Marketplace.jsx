@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { fetchMeals, selectMeals, selectMealsLoading, selectMealsError } from '../redux';
 import { useCart } from '../context/CartContext';
 import LoadingSpinner from '../components/common/LoadingSpinner';
@@ -16,22 +17,23 @@ const Marketplace = () => {
   }, [dispatch]);
 
   return (
-    <div className="marketplace-page">
-      <div className="page-hero bg-dwm-green-pale py-16">
-        <div className="page-hero-content text-center max-w-4xl mx-auto px-6">
-          <div className="breadcrumb text-dwm-text-mid mb-4">
-            <a href="/" className="text-dwm-gold hover:text-dwm-gold-light">Home</a> &#8250; Marketplace
+    <div className="bg-white text-dwm-text-dark">
+      <div className="bg-dwm-green-pale px-6 md:px-16 py-12 md:py-16 border-b border-primary/10">
+        <div className="text-center max-w-4xl mx-auto">
+          <div className="text-dwm-text-mid mb-4 text-sm md:text-base">
+            <Link to="/" className="text-accent hover:text-[#b58226] transition duration-300">Home</Link> &#8250; Marketplace
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-dwm-green-deep mb-4">
+          <h1 className="text-3xl md:text-5xl font-semibold text-primary mb-4 leading-tight">
             African Marketplace by Region
           </h1>
-          <p className="text-xl text-dwm-text-mid">
+          <p className="text-base md:text-xl text-dwm-text-mid leading-relaxed">
             Shop clinically informed African meals and ingredients across West, East, and Southern Africa.
           </p>
         </div>
       </div>
 
-      <section className="section">
+      <section className="px-6 md:px-16 py-12 md:py-16">
+        <div className="max-w-7xl mx-auto">
         {loading && (
           <div className="flex justify-center items-center py-12">
             <LoadingSpinner size="lg" />
@@ -47,21 +49,24 @@ const Marketplace = () => {
         {!loading && !error && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {meals.map((meal) => (
-              <div key={meal.id} className="card">
+              <div
+                key={meal.id}
+                className="rounded-2xl border border-primary/10 bg-white p-4 shadow-md transition duration-300 hover:shadow-xl hover:-translate-y-1"
+              >
                 <img 
                   src={meal.image} 
                   alt={meal.name}
-                  className="card-image"
+                  className="h-44 w-full object-cover rounded-xl"
                 />
-                <div className="card-content">
+                <div className="pt-4">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-sm text-dwm-text-mid">{meal.emoji} {meal.country}</span>
-                    <span className="text-dwm-gold font-semibold">
+                    <span className="text-accent font-semibold">
                       {meal.currency} {meal.price.toLocaleString()}
                     </span>
                   </div>
-                  <h3 className="text-lg font-semibold text-dwm-green-deep mb-2">{meal.name}</h3>
-                  <p className="text-dwm-text-mid text-sm mb-4">{meal.desc}</p>
+                  <h3 className="text-lg font-semibold text-primary mb-2">{meal.name}</h3>
+                  <p className="text-dwm-text-mid text-sm mb-4 leading-relaxed">{meal.desc}</p>
                   
                   <div className="flex flex-wrap gap-2 mb-4">
                     {meal.healthTags.map((tag, index) => (
@@ -76,7 +81,7 @@ const Marketplace = () => {
 
                   <button
                     onClick={() => addToCart(meal)}
-                    className="btn-primary w-full text-sm"
+                    className="w-full rounded-xl bg-accent px-4 py-2.5 text-sm font-semibold text-white transition duration-300 hover:bg-[#b58226] hover:shadow-premium-sm"
                   >
                     Add to Cart
                   </button>
@@ -85,6 +90,7 @@ const Marketplace = () => {
             ))}
           </div>
         )}
+        </div>
       </section>
     </div>
   );

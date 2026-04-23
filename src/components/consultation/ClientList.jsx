@@ -1,6 +1,14 @@
 import React from 'react';
 
 const ClientList = ({ clients, loading }) => {
+  const statusClasses = {
+    green: 'bg-emerald-100 text-emerald-800',
+    yellow: 'bg-amber-100 text-amber-800',
+    orange: 'bg-orange-100 text-orange-800',
+    red: 'bg-red-100 text-red-800',
+    gray: 'bg-gray-100 text-gray-800'
+  };
+
   if (loading) {
     return (
       <div className="space-y-4">
@@ -56,16 +64,16 @@ const ClientList = ({ clients, loading }) => {
         const status = getClientStatus(client);
         
         return (
-          <div key={client.id} className="flex items-center justify-between p-4 bg-dwm-green-pale rounded-lg hover:bg-dwm-green-light transition-colors">
+          <div key={client.id} className="flex items-center justify-between p-4 bg-dwm-green-pale rounded-2xl border border-primary/10 hover:shadow-sm transition duration-300">
             <div className="flex items-center space-x-4">
               {/* Avatar */}
-              <div className="w-12 h-12 bg-dwm-green-deep rounded-full flex items-center justify-center text-white font-semibold">
+              <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white font-semibold">
                 {client.first_name?.[0] || 'U'}
               </div>
               
               {/* Client Info */}
               <div>
-                <div className="font-semibold text-dwm-green-deep">
+                <div className="font-semibold text-primary">
                   {client.first_name} {client.last_name}
                 </div>
                 <div className="text-sm text-dwm-text-mid">
@@ -78,7 +86,7 @@ const ClientList = ({ clients, loading }) => {
             </div>
             
             <div className="text-right">
-              <div className={`px-3 py-1 rounded-full text-xs font-medium bg-${status.color}-100 text-${status.color}-800 mb-2`}>
+                <div className={`px-3 py-1 rounded-full text-xs font-medium ${statusClasses[status.color] || statusClasses.gray} mb-2`}>
                 {status.text}
               </div>
               <div className="text-sm text-dwm-text-mid">
@@ -94,7 +102,7 @@ const ClientList = ({ clients, loading }) => {
       
       {clients.length > 5 && (
         <div className="text-center pt-4">
-          <button className="btn-secondary">
+          <button className="rounded-xl border border-primary/20 px-4 py-2 text-sm font-semibold text-primary transition duration-300 hover:border-primary/40 hover:shadow-premium-sm">
             View All Clients ({clients.length})
           </button>
         </div>

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Formik, Form, useFormikContext } from 'formik';
-import * as yup from 'yup';
 import { useSelector, useDispatch } from 'react-redux';
 import { registerUser, selectAuth } from '../redux';
 import { useToast } from '../hooks/useToast';
@@ -16,7 +15,7 @@ const Signup = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { success, error } = useToast();
-  const { isLoading, error: authError } = useSelector(selectAuth);
+  const { isLoading } = useSelector(selectAuth);
 
   const initialValues = {
     firstName: '',
@@ -83,10 +82,10 @@ const Signup = () => {
   ];
 
   const StepForm = () => {
-    const { values, errors, touched, isSubmitting } = useFormikContext();
+    const { values, isSubmitting } = useFormikContext();
 
     return (
-      <Form className="auth-form max-w-md mx-auto w-full" noValidate>
+      <Form className="max-w-md mx-auto w-full" noValidate>
         {/* Step 1: Personal Information */}
         {currentStep === 1 && (
           <div className="space-y-6">
@@ -123,7 +122,7 @@ const Signup = () => {
         {/* Step 3: Security */}
         {currentStep === 3 && (
           <div className="space-y-6">
-            <div className="form-group">
+            <div>
               <FormField
                 name="password"
                 type={showPassword ? 'text' : 'password'}
@@ -133,7 +132,7 @@ const Signup = () => {
               />
               <button
                 type="button"
-                className="auth-password-toggle absolute right-3 top-1/2 -translate-y-1/2 text-dwm-text-mid hover:text-dwm-text-dark"
+                className="text-sm text-dwm-text-mid hover:text-primary transition duration-300"
                 onClick={togglePasswordVisibility}
                 aria-label={showPassword ? 'Hide password' : 'Show password'}
               >
@@ -141,7 +140,7 @@ const Signup = () => {
               </button>
             </div>
 
-            <div className="form-group">
+            <div>
               <FormField
                 name="confirmPassword"
                 type={showConfirmPassword ? 'text' : 'password'}
@@ -151,7 +150,7 @@ const Signup = () => {
               />
               <button
                 type="button"
-                className="auth-password-toggle absolute right-3 top-1/2 -translate-y-1/2 text-dwm-text-mid hover:text-dwm-text-dark"
+                className="text-sm text-dwm-text-mid hover:text-primary transition duration-300"
                 onClick={toggleConfirmPasswordVisibility}
                 aria-label={showConfirmPassword ? 'Hide password' : 'Show password'}
               >
@@ -170,11 +169,11 @@ const Signup = () => {
               label={
                 <span>
                   I agree to the{' '}
-                  <Link to="/terms" className="text-dwm-gold hover:text-dwm-gold-light underline">
+                  <Link to="/terms" className="text-accent hover:text-[#b58226] underline transition duration-300">
                     Terms and Conditions
                   </Link>{' '}
                   and{' '}
-                  <Link to="/privacy" className="text-dwm-gold hover:text-dwm-gold-light underline">
+                  <Link to="/privacy" className="text-accent hover:text-[#b58226] underline transition duration-300">
                     Privacy Policy
                   </Link>
                 </span>
@@ -189,7 +188,7 @@ const Signup = () => {
             type="button"
             onClick={handlePrevious}
             disabled={currentStep === 1}
-            className="btn-secondary disabled:opacity-50 disabled:cursor-not-allowed"
+            className="rounded-xl border border-primary/20 px-5 py-2.5 text-sm font-semibold text-primary disabled:opacity-50 disabled:cursor-not-allowed transition duration-300 hover:border-primary/45 hover:shadow-premium-sm"
           >
             Previous
           </button>
@@ -203,7 +202,7 @@ const Signup = () => {
                 (currentStep === 2 && !values.email) ||
                 (currentStep === 3 && (!values.password || !values.confirmPassword || values.password !== values.confirmPassword))
               }
-              className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
+              className="rounded-xl bg-accent px-5 py-2.5 text-sm font-semibold text-white disabled:opacity-50 disabled:cursor-not-allowed transition duration-300 hover:bg-[#b58226] hover:shadow-premium-sm"
             >
               Next
             </button>
@@ -211,7 +210,7 @@ const Signup = () => {
             <button
               type="submit"
               disabled={isSubmitting || isLoading || !values.agreeToTerms}
-              className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="rounded-xl bg-accent px-5 py-2.5 text-sm font-semibold text-white disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 transition duration-300 hover:bg-[#b58226] hover:shadow-premium-sm"
             >
               {(isSubmitting || isLoading) ? (
                 <>
@@ -229,53 +228,53 @@ const Signup = () => {
   };
 
   return (
-    <div className="auth-page min-h-screen bg-dwm-off-white">
-      <div className="auth-shell min-h-screen flex flex-col lg:flex-row">
+    <div className="min-h-screen bg-dwm-off-white">
+      <div className="min-h-screen flex flex-col lg:flex-row">
         {/* Left Panel - Visual */}
-        <section className="auth-panel auth-panel-visual flex-1 bg-dwm-green-deep text-dwm-white p-12 flex flex-col justify-center">
+        <section className="flex-1 bg-primary text-white px-6 md:px-16 py-12 md:py-16 flex flex-col justify-center">
           <div className="mb-12">
-            <Link to="/" className="nav-logo inline-flex items-center gap-2.5 mb-8">
-              <div className="logo-mark">D</div>
-              <span className="logo-text">Dine with <span className="text-dwm-gold-light">Mee</span></span>
+            <Link to="/" className="inline-flex items-center gap-3 mb-8">
+              <div className="h-10 w-10 rounded-xl bg-white text-primary flex items-center justify-center font-bold text-lg">D</div>
+              <span className="text-lg font-semibold tracking-tight">Dine with <span className="text-accent">Mee</span></span>
             </Link>
           </div>
 
           <div className="flex-1 flex flex-col justify-center">
-            <h1 className="text-4xl md:text-5xl font-bold font-serif mb-6">
+            <h1 className="text-3xl md:text-5xl font-semibold font-serif mb-6 leading-tight max-w-2xl">
               Join Our Health Community
             </h1>
-            <p className="text-xl mb-8 text-dwm-white/90">
+            <p className="text-base md:text-xl mb-8 text-white/90 max-w-2xl leading-relaxed">
               Start your journey to better health with personalized nutrition plans and therapeutic African meals.
             </p>
 
             <div className="space-y-6">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-dwm-gold rounded-full flex items-center justify-center">
-                  <span className="text-dwm-green-deep font-bold">✓</span>
+              <div className="flex items-center gap-4 rounded-2xl border border-white/20 bg-white/5 p-4">
+                <div className="w-12 h-12 bg-accent rounded-full flex items-center justify-center">
+                  <span className="text-primary font-bold">✓</span>
                 </div>
                 <div>
-                  <strong className="block text-dwm-gold-light mb-1">Personalized Health Plans</strong>
-                  <span className="text-dwm-white/80">Get nutrition recommendations tailored to your health goals</span>
+                  <strong className="block text-accent mb-1">Personalized Health Plans</strong>
+                  <span className="text-white/80">Get nutrition recommendations tailored to your health goals</span>
                 </div>
               </div>
 
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-dwm-gold rounded-full flex items-center justify-center">
-                  <span className="text-dwm-green-deep font-bold">✓</span>
+              <div className="flex items-center gap-4 rounded-2xl border border-white/20 bg-white/5 p-4">
+                <div className="w-12 h-12 bg-accent rounded-full flex items-center justify-center">
+                  <span className="text-primary font-bold">✓</span>
                 </div>
                 <div>
-                  <strong className="block text-dwm-gold-light mb-1">Therapeutic Meals</strong>
-                  <span className="text-dwm-white/80">Access clinically-designed African meal plans</span>
+                  <strong className="block text-accent mb-1">Therapeutic Meals</strong>
+                  <span className="text-white/80">Access clinically-designed African meal plans</span>
                 </div>
               </div>
 
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-dwm-gold rounded-full flex items-center justify-center">
-                  <span className="text-dwm-green-deep font-bold">✓</span>
+              <div className="flex items-center gap-4 rounded-2xl border border-white/20 bg-white/5 p-4">
+                <div className="w-12 h-12 bg-accent rounded-full flex items-center justify-center">
+                  <span className="text-primary font-bold">✓</span>
                 </div>
                 <div>
-                  <strong className="block text-dwm-gold-light mb-1">Expert Support</strong>
-                  <span className="text-dwm-white/80">Connect with nutritionists and health professionals</span>
+                  <strong className="block text-accent mb-1">Expert Support</strong>
+                  <span className="text-white/80">Connect with nutritionists and health professionals</span>
                 </div>
               </div>
             </div>
@@ -283,35 +282,35 @@ const Signup = () => {
         </section>
 
         {/* Right Panel - Form */}
-        <section className="auth-panel auth-panel-form flex-1 bg-white p-12 flex flex-col justify-center">
-          <div className="auth-form-header max-w-md mx-auto w-full mb-8">
+        <section className="flex-1 bg-white px-6 md:px-16 py-12 md:py-16 flex flex-col justify-center">
+          <div className="max-w-md mx-auto w-full mb-8">
             {/* Progress Steps */}
-            <div className="flex items-center justify-between mb-8">
+            <div className="flex items-center justify-between mb-8 overflow-x-auto gap-1">
               {steps.map((step) => (
                 <div key={step.number} className="flex items-center">
                   <div className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-semibold transition-colors ${
                     currentStep >= step.number 
-                      ? 'bg-dwm-gold text-dwm-green-deep' 
+                      ? 'bg-accent text-primary' 
                       : 'bg-dwm-green-pale text-dwm-text-mid'
                   }`}>
                     {currentStep > step.number ? '✓' : step.number}
                   </div>
                   {step.number < steps.length && (
-                    <div className={`w-16 h-1 mx-2 transition-colors ${
-                      currentStep > step.number ? 'bg-dwm-gold' : 'bg-dwm-green-pale'
+                    <div className={`w-8 md:w-16 h-1 mx-1 md:mx-2 transition-colors ${
+                      currentStep > step.number ? 'bg-accent' : 'bg-dwm-green-pale'
                     }`} />
                   )}
                 </div>
               ))}
             </div>
 
-            <span className="auth-kicker text-dwm-gold font-semibold text-sm uppercase tracking-wider mb-4">
+            <span className="text-accent font-semibold text-sm uppercase tracking-wider mb-4 inline-block">
               Step {currentStep} of {steps.length}
             </span>
-            <h2 className="text-3xl md:text-4xl font-bold font-serif text-dwm-green-deep mb-4">
+            <h2 className="text-3xl md:text-4xl font-semibold font-serif text-primary mb-4 leading-tight">
               {steps[currentStep - 1].title}
             </h2>
-            <p className="text-dwm-text-mid">
+            <p className="text-dwm-text-mid leading-relaxed">
               {steps[currentStep - 1].description}
             </p>
           </div>
@@ -324,13 +323,13 @@ const Signup = () => {
             <StepForm />
           </Formik>
 
-          <div className="auth-divider text-center my-8">
+          <div className="text-center my-8">
             <span className="text-dwm-text-mid">Already have an account?</span>
           </div>
           <div className="text-center">
             <Link 
               to="/login" 
-              className="auth-secondary-link text-dwm-gold hover:text-dwm-gold-light font-medium"
+              className="text-accent hover:text-[#b58226] font-medium transition duration-300"
             >
               Sign in to your account
             </Link>

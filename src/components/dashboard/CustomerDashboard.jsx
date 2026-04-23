@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useCustomer } from '../../context/CustomerContext';
 import { useAuth } from '../../context/AuthContext';
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
-import { Button } from '../ui/button';
-import { Badge } from '../ui/badge';
-import { Progress } from '../ui/progress';
+import { Card, CardContent, CardHeader, CardTitle, Button, Badge, Progress } from '../ui';
 import { 
   Activity, 
   Calendar, 

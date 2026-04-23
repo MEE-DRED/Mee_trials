@@ -335,7 +335,7 @@ const Signup = () => {
                 <button
                   type="button"
                   onClick={handlePrevious}
-                  className="btn-secondary flex-1"
+                  className="flex-1 rounded-xl border border-primary/20 bg-white px-5 py-3 text-sm font-semibold text-primary transition duration-300 hover:border-primary/40 hover:shadow-premium-sm"
                 >
                   Previous
                 </button>
@@ -346,7 +346,7 @@ const Signup = () => {
                   type="button"
                   onClick={handleNext}
                   disabled={!validateStep(currentStep)}
-                  className="btn-primary flex-1 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex-1 rounded-xl bg-accent px-5 py-3 text-sm font-semibold text-white transition duration-300 hover:bg-[#b58226] hover:shadow-premium-sm disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   Next
                 </button>
@@ -354,7 +354,7 @@ const Signup = () => {
                 <button
                   type="submit"
                   disabled={isLoading || !validateStep(4)}
-                  className="btn-primary flex-1 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex-1 rounded-xl bg-accent px-5 py-3 text-sm font-semibold text-white transition duration-300 hover:bg-[#b58226] hover:shadow-premium-sm disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   {isLoading ? 'Creating Account...' : 'Create Account'}
                 </button>

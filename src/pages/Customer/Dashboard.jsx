@@ -45,25 +45,25 @@ const CustomerDashboard = () => {
   }
 
   return (
-    <div className="customer-dashboard">
-      <div className="page-hero bg-dwm-green-pale py-8">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex items-center justify-between">
+    <div className="bg-white text-dwm-text-dark">
+      <div className="bg-dwm-green-pale px-6 md:px-16 py-12 md:py-16 border-b border-primary/10">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
-              <h1 className="text-3xl font-bold text-dwm-green-deep">
+              <h1 className="text-3xl md:text-4xl font-semibold text-primary leading-tight">
                 Welcome back, {user?.first_name || 'Customer'}!
               </h1>
-              <p className="text-dwm-text-mid mt-2">
+              <p className="text-dwm-text-mid mt-2 leading-relaxed">
                 Your personalized health and nutrition dashboard
               </p>
             </div>
-            <div className="text-right">
+            <div className="text-left md:text-right">
               <div className="text-sm text-dwm-text-mid">
                 Account Status: 
                 <span className={`ml-2 px-2 py-1 rounded-full text-xs font-medium ${
                   user?.account_status === 'ACTIVE' 
-                    ? 'bg-green-100 text-green-800' 
-                    : 'bg-yellow-100 text-yellow-800'
+                    ? 'bg-emerald-100 text-emerald-800' 
+                    : 'bg-amber-100 text-amber-800'
                 }`}>
                   {user?.account_status || 'PENDING'}
                 </span>
@@ -73,8 +73,8 @@ const CustomerDashboard = () => {
         </div>
       </div>
 
-      <div className="section">
-        <div className="max-w-7xl mx-auto px-6">
+      <div className="px-6 md:px-16 py-12 md:py-16">
+        <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
             {/* Health Profile Widget */}
             <div className="lg:col-span-1">
@@ -103,7 +103,7 @@ const CustomerDashboard = () => {
 
           {/* Recommended Meals Section */}
           <div className="mb-8">
-            <h2 className="text-2xl font-bold text-dwm-green-deep mb-6">
+            <h2 className="text-2xl font-semibold text-primary mb-6">
               Recommended for You
             </h2>
             <RecommendedMeals 
@@ -115,57 +115,57 @@ const CustomerDashboard = () => {
 
           {/* Quick Actions */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="card">
-              <div className="card-content">
-                <h3 className="text-lg font-semibold text-dwm-green-deep mb-2">
+            <div className="rounded-2xl border border-primary/10 bg-white shadow-md hover:shadow-xl transition duration-300">
+              <div className="p-6">
+                <h3 className="text-lg font-semibold text-primary mb-2">
                   📋 Health Assessment
                 </h3>
-                <p className="text-dwm-text-mid text-sm mb-4">
+                <p className="text-dwm-text-mid text-sm mb-4 leading-relaxed">
                   Complete your comprehensive health evaluation
                 </p>
-                <button className="btn-primary w-full">
+                <button className="w-full rounded-xl bg-accent px-4 py-3 text-sm font-semibold text-white transition duration-300 hover:bg-[#b58226] hover:shadow-premium-sm">
                   Start Assessment
                 </button>
               </div>
             </div>
 
-            <div className="card">
-              <div className="card-content">
-                <h3 className="text-lg font-semibold text-dwm-green-deep mb-2">
+            <div className="rounded-2xl border border-primary/10 bg-white shadow-md hover:shadow-xl transition duration-300">
+              <div className="p-6">
+                <h3 className="text-lg font-semibold text-primary mb-2">
                   🥗 Meal Plans
                 </h3>
-                <p className="text-dwm-text-mid text-sm mb-4">
+                <p className="text-dwm-text-mid text-sm mb-4 leading-relaxed">
                   View your personalized nutrition plans
                 </p>
-                <button className="btn-primary w-full">
+                <button className="w-full rounded-xl bg-accent px-4 py-3 text-sm font-semibold text-white transition duration-300 hover:bg-[#b58226] hover:shadow-premium-sm">
                   View Plans
                 </button>
               </div>
             </div>
 
-            <div className="card">
-              <div className="card-content">
-                <h3 className="text-lg font-semibold text-dwm-green-deep mb-2">
+            <div className="rounded-2xl border border-primary/10 bg-white shadow-md hover:shadow-xl transition duration-300">
+              <div className="p-6">
+                <h3 className="text-lg font-semibold text-primary mb-2">
                   📊 Progress Tracking
                 </h3>
-                <p className="text-dwm-text-mid text-sm mb-4">
+                <p className="text-dwm-text-mid text-sm mb-4 leading-relaxed">
                   Track your health metrics over time
                 </p>
-                <button className="btn-primary w-full">
+                <button className="w-full rounded-xl bg-accent px-4 py-3 text-sm font-semibold text-white transition duration-300 hover:bg-[#b58226] hover:shadow-premium-sm">
                   Track Progress
                 </button>
               </div>
             </div>
 
-            <div className="card">
-              <div className="card-content">
-                <h3 className="text-lg font-semibold text-dwm-green-deep mb-2">
+            <div className="rounded-2xl border border-primary/10 bg-white shadow-md hover:shadow-xl transition duration-300">
+              <div className="p-6">
+                <h3 className="text-lg font-semibold text-primary mb-2">
                   👨‍⚕️ Book Consultation
                 </h3>
-                <p className="text-dwm-text-mid text-sm mb-4">
+                <p className="text-dwm-text-mid text-sm mb-4 leading-relaxed">
                   Schedule a session with a nutritionist
                 </p>
-                <button className="btn-primary w-full">
+                <button className="w-full rounded-xl bg-accent px-4 py-3 text-sm font-semibold text-white transition duration-300 hover:bg-[#b58226] hover:shadow-premium-sm">
                   Book Now
                 </button>
               </div>

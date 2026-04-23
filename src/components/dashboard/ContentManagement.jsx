@@ -1,6 +1,22 @@
 import React from 'react';
 
 const ContentManagement = ({ content }) => {
+  const typeClasses = {
+    blue: 'bg-sky-100 text-sky-800',
+    green: 'bg-emerald-100 text-emerald-800',
+    purple: 'bg-violet-100 text-violet-800',
+    orange: 'bg-orange-100 text-orange-800',
+    pink: 'bg-pink-100 text-pink-800',
+    gray: 'bg-gray-100 text-gray-800'
+  };
+
+  const statusClasses = {
+    green: 'bg-emerald-100 text-emerald-800',
+    yellow: 'bg-amber-100 text-amber-800',
+    gray: 'bg-gray-100 text-gray-800',
+    red: 'bg-red-100 text-red-800'
+  };
+
   const mockContent = [
     {
       id: '1',
@@ -64,12 +80,12 @@ const ContentManagement = ({ content }) => {
   return (
     <div className="space-y-4">
       <div className="flex justify-between items-center mb-4">
-        <h4 className="font-medium text-dwm-green-deep">Content Management</h4>
+        <h4 className="font-medium text-primary">Content Management</h4>
         <div className="flex space-x-2">
-          <button className="btn-primary text-sm">
+          <button className="rounded-xl bg-accent px-4 py-2 text-sm font-semibold text-white transition duration-300 hover:bg-[#b58226] hover:shadow-premium-sm">
             Create Content
           </button>
-          <button className="btn-secondary text-sm">
+          <button className="rounded-xl border border-primary/20 px-4 py-2 text-sm font-semibold text-primary transition duration-300 hover:border-primary/40 hover:shadow-premium-sm">
             View All
           </button>
         </div>
@@ -81,17 +97,17 @@ const ContentManagement = ({ content }) => {
           const statusBadge = getStatusBadge(item.status);
           
           return (
-            <div key={item.id} className="p-4 bg-dwm-green-pale rounded-lg hover:bg-dwm-green-light transition-colors">
+            <div key={item.id} className="p-4 bg-dwm-green-pale rounded-2xl border border-primary/10 hover:shadow-sm transition duration-300">
               <div className="flex items-start justify-between">
                 <div className="flex-1">
                   <div className="flex items-center space-x-2 mb-2">
-                    <h5 className="font-medium text-dwm-green-deep">
+                    <h5 className="font-medium text-primary">
                       {item.title}
                     </h5>
-                    <span className={`px-2 py-1 rounded-full text-xs font-medium bg-${typeBadge.color}-100 text-${typeBadge.color}-800`}>
+                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${typeClasses[typeBadge.color] || typeClasses.gray}`}>
                       {typeBadge.text}
                     </span>
-                    <span className={`px-2 py-1 rounded-full text-xs font-medium bg-${statusBadge.color}-100 text-${statusBadge.color}-800`}>
+                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${statusClasses[statusBadge.color] || statusClasses.gray}`}>
                       {statusBadge.text}
                     </span>
                   </div>
@@ -114,14 +130,14 @@ const ContentManagement = ({ content }) => {
                 </div>
                 
                 <div className="flex space-x-2 ml-4">
-                  <button className="btn-secondary text-xs">
+                  <button className="rounded-xl border border-primary/20 px-3 py-2 text-xs font-semibold text-primary transition duration-300 hover:border-primary/40 hover:shadow-premium-sm">
                     Edit
                   </button>
-                  <button className="btn-secondary text-xs">
+                  <button className="rounded-xl border border-primary/20 px-3 py-2 text-xs font-semibold text-primary transition duration-300 hover:border-primary/40 hover:shadow-premium-sm">
                     Preview
                   </button>
                   {item.status === 'PENDING_REVIEW' && (
-                    <button className="btn-primary text-xs">
+                    <button className="rounded-xl bg-accent px-3 py-2 text-xs font-semibold text-white transition duration-300 hover:bg-[#b58226] hover:shadow-premium-sm">
                       Review
                     </button>
                   )}
@@ -132,23 +148,23 @@ const ContentManagement = ({ content }) => {
         })}
       </div>
 
-      <div className="mt-6 pt-4 border-t">
+      <div className="mt-6 pt-4 border-t border-primary/10">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-          <div className="p-3 bg-green-50 rounded">
-            <div className="text-lg font-bold text-green-600">12</div>
-            <div className="text-xs text-green-800">Published</div>
+          <div className="p-3 bg-emerald-50 rounded-xl">
+            <div className="text-lg font-bold text-emerald-600">12</div>
+            <div className="text-xs text-emerald-800">Published</div>
           </div>
-          <div className="p-3 bg-yellow-50 rounded">
-            <div className="text-lg font-bold text-yellow-600">5</div>
-            <div className="text-xs text-yellow-800">Pending Review</div>
+          <div className="p-3 bg-amber-50 rounded-xl">
+            <div className="text-lg font-bold text-amber-600">5</div>
+            <div className="text-xs text-amber-800">Pending Review</div>
           </div>
-          <div className="p-3 bg-gray-50 rounded">
+          <div className="p-3 bg-gray-50 rounded-xl">
             <div className="text-lg font-bold text-gray-600">8</div>
             <div className="text-xs text-gray-800">Drafts</div>
           </div>
-          <div className="p-3 bg-blue-50 rounded">
-            <div className="text-lg font-bold text-blue-600">4.2K</div>
-            <div className="text-xs text-blue-800">Total Views</div>
+          <div className="p-3 bg-sky-50 rounded-xl">
+            <div className="text-lg font-bold text-sky-600">4.2K</div>
+            <div className="text-xs text-sky-800">Total Views</div>
           </div>
         </div>
       </div>
