@@ -55,7 +55,7 @@ function App() {
     <Provider store={store}>
       <AuthProvider>
         <CartProvider>
-          <Router>
+          <Router basename={import.meta.env.BASE_URL}>
             <div className="min-h-screen flex flex-col">
               <Navbar />
               <main className="flex-1 pt-18">

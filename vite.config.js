@@ -6,12 +6,13 @@ import imagemin from 'vite-plugin-imagemin'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: '/Mee_trials/',
   plugins: [
     react(),
     tailwindcss(),
     visualizer({ 
       filename: 'dist/stats.html',
-      open: true,
+      open: false,
       gzipSize: true
     }),
     imagemin({
