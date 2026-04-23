@@ -39,6 +39,8 @@ const AdminDashboardNew = lazy(() => import('./pages/Admin/Dashboard'));
 const PharmacyDashboard = lazy(() => import('./pages/Pharmacy/Dashboard'));
 
 function App() {
+  const routerBase = import.meta.env.BASE_URL === '/' ? '' : import.meta.env.BASE_URL;
+
   useEffect(() => {
     // Initialize Redux state from localStorage
     store.dispatch(checkAuthState());
@@ -55,7 +57,7 @@ function App() {
     <Provider store={store}>
       <AuthProvider>
         <CartProvider>
-          <Router basename={import.meta.env.BASE_URL}>
+          <Router basename={routerBase}>
             <div className="min-h-screen flex flex-col">
               <Navbar />
               <main className="flex-1 pt-18">

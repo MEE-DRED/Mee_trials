@@ -5,8 +5,15 @@ import { visualizer } from 'rollup-plugin-visualizer'
 import imagemin from 'vite-plugin-imagemin'
 
 // https://vitejs.dev/config/
+const isGhPages =
+  process.env.GITHUB_ACTIONS === 'true' ||
+  process.env.DEPLOY_TARGET === 'gh-pages' ||
+  process.env.VITE_DEPLOY_TARGET === 'gh-pages'
+
+const shouldOptimizeImages = process.env.ENABLE_IMAGE_MIN === 'true'
+
 export default defineConfig({
-  base: '/Mee_trials/',
+  base: isGhPages ? '/Mee_trials/' : '/',
   plugins: [
     react(),
     tailwindcss(),
@@ -15,17 +22,21 @@ export default defineConfig({
       open: false,
       gzipSize: true
     }),
-    imagemin({
-      gifsicle: { optimizationLevel: 7 },
-      mozjpeg: { quality: 80 },
-      pngquant: { quality: [0.65, 0.8] },
-      svgo: {
-        plugins: [
-          { name: 'removeViewBox', active: false },
-          { name: 'removeEmptyAttrs', active: false }
+    ...(shouldOptimizeImages
+      ? [
+          imagemin({
+            gifsicle: { optimizationLevel: 7 },
+            mozjpeg: { quality: 80 },
+            pngquant: { quality: [0.65, 0.8] },
+            svgo: {
+              plugins: [
+                { name: 'removeViewBox', active: false },
+                { name: 'removeEmptyAttrs', active: false }
+              ]
+            }
+          })
         ]
-      }
-    })
+      : [])
   ],
   build: {
     rollupOptions: {
